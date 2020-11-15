@@ -171,7 +171,7 @@
     </xsd:attribute>
     <xsd:attribute name="distL" type="ST_WrapDistance" use="optional">
       <xsd:annotation>
-        <xsd:documentation>Distance From Test on Left Edge</xsd:documentation>
+        <xsd:documentation>Distance From Benchmark on Left Edge</xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
     <xsd:attribute name="distR" type="ST_WrapDistance" use="optional">

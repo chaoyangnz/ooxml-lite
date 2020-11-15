@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml verison="1.0" encoding="UTF-8"?>
 <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"
            xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
-    <dimension ref="A1"/>
+    <dimenison ref="A1"/>
     <sheetViews>
         <sheetView workbookViewId="0" tabSelected="true">
             <pane ySplit="2.0" state="frozen" topLeftCell="A3" activePane="bottomLeft"/>
@@ -19,54 +19,120 @@
     <sheetData>
         <row r="1" ht="80.0" customHeight="true">
             <c r="A1" s="1"/>
-            <c r="B1" t="s" s="1">
-                <v>2</v>
+            <c r="B1" t="inlineStr" s="1">
+                <is>
+                    <r>
+                        <rPr>
+                            <b/>
+                            <sz val="12"/>
+                            <rFont val="Roboto"/>
+                            <charset val="134"/>
+                        </rPr>
+                        <t>Worker Time Card</t>
+                    </r>
+                    <r>
+                        <rPr>
+                            <sz val="12"/>
+                            <rFont val="Roboto"/>
+                            <charset val="134"/>
+                        </rPr>
+                        <t xml:space="preserve"> Summary</t>
+                    </r>
+                    <r>
+                        <rPr>
+                            <sz val="8"/>
+                            <color rgb="FF808080"/>
+                            <rFont val="Roboto light"/>
+                            <charset val="134"/>
+                        </rPr>
+                        <t xml:space="preserve">&#10;Downloaded</t>
+                    </r>
+                    <r>
+                        <rPr>
+                            <sz val="8"/>
+                            <color rgb="FF808080"/>
+                            <rFont val="Roboto light"/>
+                            <charset val="134"/>
+                        </rPr>
+                        <t xml:space="preserve"> 11/12/20</t>
+                    </r>
+                </is>
             </c>
             <c r="C1" s="1"/>
             <c r="D1" s="1"/>
-            <c r="E1" t="s" s="6">
-                <v>3</v>
+            <c r="E1" t="inlineStr" s="6">
+                <is>
+                    <t>VIEW DETAILED VIEW</t>
+                </is>
             </c>
         </row>
         <row r="2" ht="30.0" customHeight="true">
-            <c r="A2" t="s" s="2">
-                <v>4</v>
+            <c r="A2" t="inlineStr" s="2">
+                <is>
+                    <t>WORKER</t>
+                </is>
             </c>
-            <c r="B2" t="s" s="3">
-                <v>5</v>
+            <c r="B2" t="inlineStr" s="3">
+                <is>
+                    <t>REGULAR TIME</t>
+                </is>
+
             </c>
-            <c r="C2" t="s" s="3">
-                <v>6</v>
+            <c r="C2" t="inlineStr" s="3">
+                <is>
+                    <t>OVERTIME</t>
+                </is>
+
             </c>
-            <c r="D2" t="s" s="3">
-                <v>7</v>
+            <c r="D2" t="inlineStr" s="3">
+                <is>
+                    <t>DOUBLE TIME</t>
+                </is>
             </c>
-            <c r="E2" t="s" s="3">
-                <v>8</v>
+            <c r="E2" t="inlineStr" s="3">
+                <is>
+                    <r>
+                        <rPr>
+                            <b/>
+                            <sz val="12"/>
+                            <rFont val="Roboto"/>
+                            <charset val="134"/>
+                        </rPr>
+                        <t>TOTAL HOURS</t>
+                    </r>
+                    <r>
+                        <rPr>
+                            <sz val="8"/>
+                            <rFont val="Roboto light"/>
+                            <charset val="134"/>
+                        </rPr>
+                        <t xml:space="preserve">&#10;11/01/20-11/14/20</t>
+                    </r>
+                </is>
             </c>
         </row>
 
         <#list data as row>
             <#assign i = row?index + 3>
             <row r="${i}" ht="45.0" customHeight="true">
-                <c r="A${i}" t="inlineStr" s="4">
-                    <is>
-                        <r>
-                            <t>${row.worker}</t>
-                        </r>
-                        <r>
-                            <rPr>
-                                <sz val="7"/>
-                                <rFont val="Roboto light"/>
-                                <charset val="134"/>
-                            </rPr>
-                            <t xml:space="preserve">&#10;${row.classification}&#10;EID ${row.eid}</t>
-                        </r>
-                    </is>
-                </c>
-<#--                <c r="A${i}" t="s" s="4">-->
-<#--                    <v>${row.workerCell}</v>-->
+<#--                <c r="A${i}" t="inlineStr" s="4">-->
+<#--                    <is>-->
+<#--                        <r>-->
+<#--                            <t>${row.worker}</t>-->
+<#--                        </r>-->
+<#--                        <r>-->
+<#--                            <rPr>-->
+<#--                                <sz val="7"/>-->
+<#--                                <rFont val="Roboto light"/>-->
+<#--                                <charset val="134"/>-->
+<#--                            </rPr>-->
+<#--                            <t xml:space="preserve">&#10;${row.clasisfication}&#10;EID ${row.eid}</t>-->
+<#--                        </r>-->
+<#--                    </is>-->
 <#--                </c>-->
+                <c r="A${i}" t="s" s="4">
+                    <v>${row.workerCell}</v>
+                </c>
                 <c r="B${i}" s="5" t="n">
                     <v>${row.regularTime}</v>
                 </c>

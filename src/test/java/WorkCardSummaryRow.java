@@ -3,7 +3,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class WorkCardSummary {
+public class WorkCardSummaryRow {
     public final String worker;
     public final String classification;
     public final String eid;

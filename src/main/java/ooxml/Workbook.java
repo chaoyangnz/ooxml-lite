@@ -72,16 +72,20 @@ public class Workbook {
         FileUtils.copyDirectory(BLUEPRINT_DIR, tmp.toFile(), Workbook::shouldInclude);
         System.err.println("Temp files: " + tmp);
 
-        sheets.forEach(sheet -> {
+        for(int i = 1; i < sheets.size() + 1; ++i) {
+            Sheet sheet = sheets.get(i-1);
             Template template;
             try {
                 template = freemarker.getTemplate(sheet.getTemplate());
                 Map<String, List> context = new HashMap<>();
                 context.put("data", sheet.getData());
-                template.process(context, new FileWriter(tmp.toString() + "/xl/worksheets/sheet1.xml"));
+                template.process(context, new FileWriter(tmp.toString() + "/xl/worksheets/sheet" + i +".xml"));
             } catch (IOException | TemplateException e) {
                 e.printStackTrace();
             }
+        }
+        sheets.forEach(sheet -> {
+
         });
 
         // shared strings

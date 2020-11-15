@@ -3,6 +3,7 @@ package ooxml;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Sheet<T> {
     private final String template;
     private final Workbook workbook;
     private final String name;
+    @Setter
     private List<T> data = new LinkedList<>();
 
     public Cell newNumber(Number number) {
