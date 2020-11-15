@@ -22,19 +22,5 @@ public class Sheet<T> {
     @Setter
     private List<T> data = new LinkedList<>();
 
-    public Cell newNumber(Number number) {
-        return new Cell(NUMBER, String.valueOf(number), null, 0);
-    }
 
-    public Cell newString(String str) {
-        return new Cell(STRING, str, null, 0);
-    }
-
-    public Cell newSharedString(String str) {
-        return new Cell(SHARED_STRING, String.valueOf(workbook.createSharedString(str)), null, 0);
-    }
-
-    public Cell newFormula(String formula, String result) {
-        return new Cell(FORMULA, String.valueOf(result), formula, 0);
-    }
 }

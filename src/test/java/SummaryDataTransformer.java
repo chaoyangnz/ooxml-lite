@@ -13,7 +13,7 @@ public class SummaryDataTransformer {
     @Data
     public static class WorkerKey {
         public final String worker;
-        public final String classification;
+        public final String title;
         public final String eid;
     }
 
@@ -27,7 +27,7 @@ public class SummaryDataTransformer {
     List<WorkCardSummaryRow> transform(Workbook workbook, List<Benchmark.WorkerTimeCardSummaryDto> data) {
         Map<WorkerKey, WorkTime> map = new HashMap<>();
         data.stream().forEach(summaryDto -> {
-            WorkerKey workerKey = new WorkerKey(summaryDto.worker, "", summaryDto.eid);
+            WorkerKey workerKey = new WorkerKey(summaryDto.worker, summaryDto.title, summaryDto.eid);
             WorkTime workTime;
             if(map.containsKey(workerKey)) {
                 workTime = map.get(workerKey);
@@ -44,7 +44,7 @@ public class SummaryDataTransformer {
             WorkerKey workerKey = entry.getKey();
             WorkTime workTime = entry.getValue();
             WorkCardSummaryRow summaryRow = new WorkCardSummaryRow(
-                    workerKey.worker, workerKey.classification, workerKey.eid,
+                    workerKey.worker, workerKey.title, workerKey.eid,
                     workTime.regularTime, workTime.overTime, workTime.doubleTime);
             return summaryRow;
         }).collect(Collectors.toList());

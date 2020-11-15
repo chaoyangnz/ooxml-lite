@@ -29,15 +29,15 @@ public class Workbook {
     private static final String BLUEPRINT = "blueprint";
     private static final File BLUEPRINT_DIR = new File(Workbook.class.getClassLoader().getResource(BLUEPRINT).getFile());
 
-    public Workbook() {
-        freemarker = new Configuration(Configuration.VERSION_2_3_20);
-        freemarker.setClassLoaderForTemplateLoading(Workbook.class.getClassLoader(), "");
-    }
-
     private List<Sheet> sheets = new ArrayList<>();
     @Getter
     private List<String> sharedStrings = new ArrayList<>();
     private Map<String, Integer> sharedStringIndexes = new HashMap<>();
+
+    public Workbook() {
+        freemarker = new Configuration(Configuration.VERSION_2_3_20);
+        freemarker.setClassLoaderForTemplateLoading(Workbook.class.getClassLoader(), "");
+    }
 
     public Sheet createSheet(String template, String name) {
         Sheet sheet = new Sheet(template, this, name);
@@ -81,6 +81,7 @@ public class Workbook {
                 context.put("data", sheet.getData());
                 context.put("workbook", this);
                 context.put("si", new SharedStringDirective()); // custom directive
+                context.put("c", new CellDirective()); // custom directive
                 template.process(context, new FileWriter(tmp.toString() + "/xl/worksheets/sheet" + i +".xml"));
             } catch (IOException | TemplateException e) {
                 e.printStackTrace();
@@ -92,8 +93,9 @@ public class Workbook {
 
         // shared strings
         Template templateSharedStrings = freemarker.getTemplate(BLUEPRINT + "/xl/sharedStrings.xml.ftl");
-        Map<String, List<String>> contextSharedStrings = new HashMap<>();
+        Map<String, Object> contextSharedStrings = new HashMap<>();
         contextSharedStrings.put("sharedStrings", getSharedStrings());
+        contextSharedStrings.put("count", getSharedStrings().size());
         templateSharedStrings.process(contextSharedStrings, new FileWriter(tmp.toString() + "/xl/sharedStrings.xml"));
 
         // zip
@@ -101,7 +103,7 @@ public class Workbook {
         zipFile(tmp.toString(), excelFile.toString(), true);
 
         long end = System.nanoTime();
-        System.err.println(format("Rendered Excel File in %dms: %s", (end - start) / 1_000_000, excelFile));
+        System.err.println(format("\uD83C\uDF7B Rendered Excel File in %dms: %s", (end - start) / 1_000_000, excelFile));
 
         return excelFile;
     }
@@ -129,12 +131,12 @@ public class Workbook {
     private static void addToZip(String path, String srcFile, ZipOutputStream zipOut) throws IOException {
         File file = new File(srcFile);
         String filePath = "".equals(path) ? file.getName() : path + "/" + file.getName();
-        System.out.println("zip entry = " + filePath);
         if (file.isDirectory()) {
             for (String fileName : file.list()) {
                 addToZip(filePath, srcFile + "/" + fileName, zipOut);
             }
         } else {
+            System.out.println("zip entry = " + filePath);
             zipOut.putNextEntry(new ZipEntry(filePath));
             FileInputStream in = new FileInputStream(srcFile);
 

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class WorkCardSummaryRow {
     public final String worker;
-    public final String classification;
+    public final String title;
     public final String eid;
     public final Double regularTime;
     public final Double overTime;

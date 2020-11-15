@@ -16,7 +16,7 @@ public class Cell {
     private String formula; // only for formula
     private int style;
 
-    public String render(int r, int c, int s) {
+    public String render(int r, int c, String s) {
         String content = "";
         switch (type) {
             case NUMBER:
@@ -25,7 +25,23 @@ public class Cell {
             case STRING: content = "<is>" + value + "</is>"; break;
             case FORMULA: content = "<f>" + formula + "</f><v>" + value + "</v>"; break;
         }
-        return "<c r=\"" + COLUMNS[c] + r + "$\" t=\"" + type + "\" s=\"" + s + "\">" + content + "</c>";
+        return "<c r=\"" + COLUMNS[c] + r + "\" t=\"" + type + "\" s=\"" + s + "\">" + content + "</c>";
+    }
+
+    public static Cell newNumber(String number) {
+        return new Cell(NUMBER, number, null, 0);
+    }
+
+    public static Cell newString(String str) {
+        return new Cell(STRING, str, null, 0);
+    }
+
+    public static Cell newSharedString(int index) {
+        return new Cell(SHARED_STRING, String.valueOf(index), null, 0);
+    }
+
+    public static Cell newFormula(String formula, String result) {
+        return new Cell(FORMULA, String.valueOf(result), formula, 0);
     }
 
 }
