@@ -115,24 +115,23 @@
         <#list data as row>
             <#assign i = row?index + 3>
             <row r="${i}" ht="45.0" customHeight="true">
-<#--                <c r="A${i}" t="inlineStr" s="4">-->
-<#--                    <is>-->
-<#--                        <r>-->
-<#--                            <t>${row.worker}</t>-->
-<#--                        </r>-->
-<#--                        <r>-->
-<#--                            <rPr>-->
-<#--                                <sz val="7"/>-->
-<#--                                <rFont val="Roboto light"/>-->
-<#--                                <charset val="134"/>-->
-<#--                            </rPr>-->
-<#--                            <t xml:space="preserve">&#10;${row.clasisfication}&#10;EID ${row.eid}</t>-->
-<#--                        </r>-->
-<#--                    </is>-->
-<#--                </c>-->
+
                 <c r="A${i}" t="s" s="4">
-                    <v>${row.workerCell}</v>
+                    <@si>
+                        <r>
+                            <t>${row.worker!}</t>
+                        </r>
+                        <r>
+                            <rPr>
+                                <sz val="7"/>
+                                <rFont val="Roboto light"/>
+                                <charset val="134"/>
+                            </rPr>
+                            <t xml:space="preserve">&#10;${row.clasisfication!}&#10;EID ${row.eid!}</t>
+                        </r>
+                    </@si>
                 </c>
+
                 <c r="B${i}" s="5" t="n">
                     <v>${row.regularTime}</v>
                 </c>

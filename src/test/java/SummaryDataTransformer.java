@@ -46,7 +46,6 @@ public class SummaryDataTransformer {
             WorkCardSummaryRow summaryRow = new WorkCardSummaryRow(
                     workerKey.worker, workerKey.classification, workerKey.eid,
                     workTime.regularTime, workTime.overTime, workTime.doubleTime);
-            summaryRow.workerCell = workbook.createSharedString(summaryRow.produceCell());
             return summaryRow;
         }).collect(Collectors.toList());
     }

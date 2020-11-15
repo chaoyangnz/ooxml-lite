@@ -45,7 +45,7 @@ public class Workbook {
         return sheet;
     }
 
-    public int createSharedString(String str) {
+    int createSharedString(String str) {
         if (sharedStringIndexes.containsKey(str)) {
             return sharedStringIndexes.get(str);
         }
@@ -77,8 +77,10 @@ public class Workbook {
             Template template;
             try {
                 template = freemarker.getTemplate(sheet.getTemplate());
-                Map<String, List> context = new HashMap<>();
+                Map<String, Object> context = new HashMap<>();
                 context.put("data", sheet.getData());
+                context.put("workbook", this);
+                context.put("si", new SharedStringDirective()); // custom directive
                 template.process(context, new FileWriter(tmp.toString() + "/xl/worksheets/sheet" + i +".xml"));
             } catch (IOException | TemplateException e) {
                 e.printStackTrace();
