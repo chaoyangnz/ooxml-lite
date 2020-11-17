@@ -6,8 +6,8 @@
                   Target="styles.xml"/>
     <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme"
                   Target="theme/theme1.xml"/>
-    <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet"
-                  Target="worksheets/sheet1.xml"/>
-    <Relationship Id="rId5" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet"
-                  Target="worksheets/sheet2.xml"/>
+    <#list sheets as sheet>
+        <Relationship Id="rel_sheet${sheet?index + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet"
+                      Target="worksheets/sheet${sheet?index + 1}.xml"/>
+    </#list>
 </Relationships>

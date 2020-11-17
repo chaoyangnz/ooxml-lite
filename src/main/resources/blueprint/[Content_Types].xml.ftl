@@ -17,6 +17,8 @@
     <Override PartName="/xl/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>
     <Override PartName="/xl/workbook.xml"
               ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>
-    <Override PartName="/xl/worksheets/sheet1.xml"
+    <#list sheets as sheet>
+    <Override PartName="/xl/worksheets/sheet${sheet?index + 1}.xml"
               ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
+    </#list>
 </Types>

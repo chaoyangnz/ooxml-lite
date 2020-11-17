@@ -20,10 +20,10 @@ public class Benchmark {
         List<WorkerTimeCardSummaryDto> data = getTimeCardData("timecards-data.json");
 
         Workbook workbook = new Workbook();
-        Worksheet worksheet1 = workbook.createSheet("sheet1.xml.ftl", "summaryView");
+        Worksheet worksheet1 = workbook.createSheet("sheet1.xml.ftl", "Summary");
         worksheet1.setData(new SummaryDataTransformer().transform(workbook, data));
 
-        Worksheet worksheet2 = workbook.createSheet("sheet2.xml.ftl", "detailedView");
+        Worksheet worksheet2 = workbook.createSheet("sheet2.xml.ftl", "Detailed");
         worksheet2.setData(new DetailedDataTransformer().transform(workbook, data));
 
         workbook.render();

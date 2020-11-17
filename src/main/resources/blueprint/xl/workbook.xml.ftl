@@ -7,8 +7,9 @@
         <workbookView windowHeight="15680"/>
     </bookViews>
     <sheets>
-        <sheet name="Summary" sheetId="1" r:id="rId1"/>
-        <sheet name="Detailed" sheetId="1" r:id="rId5"/>
+        <#list sheets as sheet>
+        <sheet name="${sheet}" sheetId="${sheet?index + 1}" r:id="rel_sheet${sheet?index + 1}"/>
+        </#list>
     </sheets>
     <calcPr calcId="144525"/>
 </workbook>

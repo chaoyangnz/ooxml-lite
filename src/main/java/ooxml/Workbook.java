@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -72,6 +73,7 @@ public class Workbook {
         FileUtils.copyDirectory(BLUEPRINT_DIR, tmp.toFile(), Workbook::shouldInclude);
         System.err.println("Temp files: " + tmp);
 
+        // sheets
         for(int i = 1; i < worksheets.size() + 1; ++i) {
             Worksheet worksheet = worksheets.get(i-1);
             Template template;
@@ -94,6 +96,25 @@ public class Workbook {
         contextSharedStrings.put("sharedStrings", getSharedStrings());
         contextSharedStrings.put("count", getSharedStrings().size());
         templateSharedStrings.process(contextSharedStrings, new FileWriter(tmp.toString() + "/xl/sharedStrings.xml"));
+
+        List<String> sheetNames = worksheets.stream().map(Worksheet::getName).collect(Collectors.toList());
+        // content types
+        Template templateContentTypes = freemarker.getTemplate(BLUEPRINT + "/[Content_Types].xml.ftl");
+        Map<String, Object> contextContentTypes = new HashMap<>();
+        contextContentTypes.put("sheets", sheetNames);
+        templateContentTypes.process(contextContentTypes, new FileWriter(tmp.toString() + "/[Content_Types].xml"));
+
+        // workbook - sheet rels
+
+        Template templateWorkbook = freemarker.getTemplate(BLUEPRINT + "/xl/workbook.xml.ftl");
+        Map<String, Object> contextWorkbook = new HashMap<>();
+        contextWorkbook.put("sheets", sheetNames);
+        templateWorkbook.process(contextWorkbook, new FileWriter(tmp.toString() + "/xl/workbook.xml"));
+
+        Template templateWorkbookRels = freemarker.getTemplate(BLUEPRINT + "/xl/_rels/workbook.xml.rels.ftl");
+        Map<String, Object> contextWorkbookRels = new HashMap<>();
+        contextWorkbookRels.put("sheets", sheetNames);
+        templateWorkbookRels.process(contextWorkbookRels, new FileWriter(tmp.toString() + "/xl/_rels/workbook.xml.rels"));
 
         // zip
         File excelFile = Files.createTempFile(UUID.randomUUID().toString(), ".xlsx").toFile();
