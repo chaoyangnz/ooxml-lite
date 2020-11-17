@@ -15,7 +15,7 @@ import static ooxml.Cell.STRING;
 
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
-public class Sheet<T> {
+public class Worksheet<T> {
     private final String template;
     private final Workbook workbook;
     private final String name;

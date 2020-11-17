@@ -3,7 +3,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.TemplateException;
 import lombok.Data;
-import ooxml.Sheet;
+import ooxml.Worksheet;
 import ooxml.Workbook;
 
 import java.io.IOException;
@@ -20,11 +20,11 @@ public class Benchmark {
         List<WorkerTimeCardSummaryDto> data = getTimeCardData("timecards-data.json");
 
         Workbook workbook = new Workbook();
-        Sheet sheet1 = workbook.createSheet("sheet1.xml.ftl", "summaryView");
-        sheet1.setData(new SummaryDataTransformer().transform(workbook, data));
+        Worksheet worksheet1 = workbook.createSheet("sheet1.xml.ftl", "summaryView");
+        worksheet1.setData(new SummaryDataTransformer().transform(workbook, data));
 
-        Sheet sheet2 = workbook.createSheet("sheet2.xml.ftl", "detailedView");
-        sheet2.setData(new DetailedDataTransformer().transform(workbook, data));
+        Worksheet worksheet2 = workbook.createSheet("sheet2.xml.ftl", "detailedView");
+        worksheet2.setData(new DetailedDataTransformer().transform(workbook, data));
 
         workbook.render();
     }

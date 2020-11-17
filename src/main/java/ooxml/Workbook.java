@@ -29,7 +29,7 @@ public class Workbook {
     private static final String BLUEPRINT = "blueprint";
     private static final File BLUEPRINT_DIR = new File(Workbook.class.getClassLoader().getResource(BLUEPRINT).getFile());
 
-    private List<Sheet> sheets = new ArrayList<>();
+    private List<Worksheet> worksheets = new ArrayList<>();
     @Getter
     private List<String> sharedStrings = new ArrayList<>();
     private Map<String, Integer> sharedStringIndexes = new HashMap<>();
@@ -39,10 +39,10 @@ public class Workbook {
         freemarker.setClassLoaderForTemplateLoading(Workbook.class.getClassLoader(), "");
     }
 
-    public Sheet createSheet(String template, String name) {
-        Sheet sheet = new Sheet(template, this, name);
-        sheets.add(sheet);
-        return sheet;
+    public Worksheet createSheet(String template, String name) {
+        Worksheet worksheet = new Worksheet(template, this, name);
+        worksheets.add(worksheet);
+        return worksheet;
     }
 
     int createSharedString(String str) {
@@ -72,13 +72,13 @@ public class Workbook {
         FileUtils.copyDirectory(BLUEPRINT_DIR, tmp.toFile(), Workbook::shouldInclude);
         System.err.println("Temp files: " + tmp);
 
-        for(int i = 1; i < sheets.size() + 1; ++i) {
-            Sheet sheet = sheets.get(i-1);
+        for(int i = 1; i < worksheets.size() + 1; ++i) {
+            Worksheet worksheet = worksheets.get(i-1);
             Template template;
             try {
-                template = freemarker.getTemplate(sheet.getTemplate());
+                template = freemarker.getTemplate(worksheet.getTemplate());
                 Map<String, Object> context = new HashMap<>();
-                context.put("data", sheet.getData());
+                context.put("data", worksheet.getData());
                 context.put("workbook", this);
                 context.put("si", new SharedStringDirective()); // custom directive
                 context.put("c", new CellDirective()); // custom directive
@@ -87,9 +87,6 @@ public class Workbook {
                 e.printStackTrace();
             }
         }
-        sheets.forEach(sheet -> {
-
-        });
 
         // shared strings
         Template templateSharedStrings = freemarker.getTemplate(BLUEPRINT + "/xl/sharedStrings.xml.ftl");

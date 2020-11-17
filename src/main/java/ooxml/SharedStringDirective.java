@@ -14,6 +14,7 @@ import java.util.Map;
 
 import static java.lang.String.format;
 
+@Deprecated
 public class SharedStringDirective implements TemplateDirectiveModel {
     @Override
     public void execute(
