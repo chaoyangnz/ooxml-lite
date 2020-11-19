@@ -13,13 +13,13 @@ Excel is related OOXML, so we build with it.
 
 Gradle
 
-```
+```gradle
 compile 'ooxml:ooxml-lite:0.0.1'
 ```
 
 ### Templating your worksheets
 
-```
+```xml
 <cols>
     <col min="1" max="1" width="32.2265625" customWidth="true"/>
     <col min="2" max="2" width="32.2265625" customWidth="true"/>
@@ -69,7 +69,7 @@ see more examples in [src/test/resources/](src/test/resources/).
 
 ### Start rendering
 
-```
+```java
 Workbook workbook = new Workbook();
 Worksheet worksheet1 = workbook.createSheet("sheet1.xml.ftl", "Summary");
 worksheet1.setData(data1);
@@ -88,7 +88,7 @@ Open your Excel in temp directory.
 
 We defined `@c` directive which has the similar attributes of OOXML `<c>..</c>` cell tag.
 
-```
+```xml
 <@c t="str" s="5" r="${i}" c="5" f="SUM(B1:D1)">
     10
 </@c>
@@ -99,7 +99,7 @@ We defined `@c` directive which has the similar attributes of OOXML `<c>..</c>` 
 Styles are defined within sheet templates by a custom directive `<@style> ... </@style>`.
 You can use the similar CSS style to define a named style then apply them to cells.
 
-```
+```xml
 <@style>
 header {
     font-size: 14;
