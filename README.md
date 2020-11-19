@@ -93,6 +93,7 @@ We defined `@c` directive which has the similar attributes of OOXML `<c>..</c>` 
     10
 </@c>
 ```
+which is useful when you want to write the same way of inline string but automatically make them to shared strings
 
 ### write styles
 
