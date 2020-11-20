@@ -110,6 +110,16 @@ header {
 </@style>
 ```
 
+### merge cells
+
+```
+<@c colspan=2></@c>
+```
+
+```
+<@c rowspan=4></@c>
+```
+
 ### Hyperlink
 
 // TODO

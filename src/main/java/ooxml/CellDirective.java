@@ -36,7 +36,17 @@ public class CellDirective implements TemplateDirectiveModel {
 
         StringModel model = ((StringModel) env.getDataModel().get("workbook"));
         Workbook workbook = (Workbook) model.getWrappedObject();
+        StringModel worksheetmodel = ((StringModel) env.getDataModel().get("worksheet"));
+        Worksheet worksheet = (Worksheet) worksheetmodel.getWrappedObject();
 
+        if(params.get("rowspan") != null) {
+            int rowspan = Integer.parseInt(((SimpleScalar) params.get("rowspan")).getAsString());
+            worksheet.createRowSpan(row, column, rowspan);
+        }
+        if(params.get("colspan") != null) {
+            int colspan = Integer.parseInt(((SimpleScalar) params.get("colspan")).getAsString());
+            worksheet.createColSpan(row, column, colspan);
+        }
 
         StringWriter writer = new StringWriter();
 

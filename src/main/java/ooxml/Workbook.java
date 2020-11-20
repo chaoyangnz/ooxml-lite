@@ -82,6 +82,8 @@ public class Workbook {
                 Map<String, Object> context = new HashMap<>();
                 context.put("data", worksheet.getData());
                 context.put("workbook", this);
+                context.put("worksheet", worksheet);
+                context.put("mergeCells", worksheet.getMergeCells());
                 context.put("si", new SharedStringDirective()); // custom directive
                 context.put("c", new CellDirective()); // custom directive
                 template.process(context, new FileWriter(tmp.toString() + "/xl/worksheets/sheet" + i +".xml"));

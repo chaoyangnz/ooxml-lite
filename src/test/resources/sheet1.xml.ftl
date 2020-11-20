@@ -142,7 +142,7 @@
                     ${row.doubleTime}
                 </@c>
 
-                <@c t="str" s="5" r="${i}" c="5" f="SUM(B${i}:D${i})">
+                <@c t="str" s="5" r="${i}" c="5" f="SUM(B${i}:D${i})" colspan="3">
                     ${row.total}
                 </@c>
             </row>
@@ -151,6 +151,9 @@
     </sheetData>
     <mergeCells>
         <mergeCell ref="B1:D1"/>
+        <#list mergeCells as mergeCell>
+            <mergeCell ref="${mergeCell}"/>
+        </#list>
     </mergeCells>
     <hyperlinks>
         <hyperlink ref="E1" r:id="rId2"/>
