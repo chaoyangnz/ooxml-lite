@@ -4,7 +4,7 @@ Generate Spreadsheet (Microsoft Excel or any OOXML compatible Spreadsheet) with 
 
 Without the need to build from the scatch, the processing is in milliseconds 🚀.
 
-Excel is related OOXML, so we build with it.
+Excel is related to OOXML, so we build with it.
 
 
 ## Get started
